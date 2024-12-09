@@ -1,4 +1,6 @@
+Below is the updated code with the "Download PDF" button and its corresponding functionality removed, leaving only the print feature:
 
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -274,12 +276,8 @@
     </div>
     <div class="button-container">
       <button id="print-btn">Print</button>
-    
     </div>
   </div>
-
-  <!-- Include jsPDF from a CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-l3R6fp8vzS7a7YZeu81ZwV4zbSVBSzRowvzpH9qC/Y3gBUHXSZXdb9ldOd7yu4GL19RssD6JNS9SRpQ4mU93MQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <script>
     const billingMultipliers = {
@@ -312,7 +310,6 @@
         totalQuantity += quantity;
       });
 
-      // Determine plan type based on total quantity
       if (totalQuantity <= 10) {
         planTypeElement.textContent = 'Basic';
       } else if (totalQuantity <= 50) {
@@ -321,7 +318,6 @@
         planTypeElement.textContent = 'Platinum';
       }
 
-      // Update grand total
       grandTotalElement.textContent = grandTotal.toFixed(2);
     }
 
@@ -341,25 +337,8 @@
 
     calculateTotals();
 
-    // Print Functionality
     document.getElementById('print-btn').addEventListener('click', () => {
       window.print();
-    });
-
-    // Download PDF functionality using jsPDF
-    document.getElementById('download-pdf').addEventListener('click', () => {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF('p', 'pt', 'letter');
-
-      // Using html method to convert the pricing-content div to PDF
-      doc.html(document.getElementById('pricing-content'), {
-        callback: function (doc) {
-          doc.save("PricingResults.pdf");
-        },
-        x: 10,
-        y: 10,
-        width: 500,
-      });
     });
   </script>
 </body>
